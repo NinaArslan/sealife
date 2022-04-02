@@ -1,5 +1,6 @@
 package south.islands.nc.sealife.Controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +12,6 @@ import south.islands.nc.sealife.rest.api.ObservationSheetApi;
 import south.islands.nc.sealife.rest.model.ObservationSheetDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @CrossOrigin
@@ -47,8 +47,8 @@ public class ObservationSheetController implements ObservationSheetApi {
      */
     @Override
     public ResponseEntity<List<ObservationSheetDto>> searchByCriteria(String animalName) {
-        Animal animal = animalService.findByName(animalName)
-                .orElseThrow(() -> new AnimalNotFoundException(animalName));
-        return ResponseEntity.ok(observationSheetService.findByCriteria(animal.getId()));
+            Animal animal = animalService.findByName(animalName)
+                    .orElse(null);
+        return ResponseEntity.ok(observationSheetService.findByCriteria(animal));
     }
 }

@@ -44,8 +44,14 @@ public class ObservationSheetService {
     }
 
 
-    public List<ObservationSheetDto> findByCriteria(Long animalId) {
-        List<ObservationAnimal> observationAnimals =  observationAnimalService.findAllByCriteria(animalId);
+    public List<ObservationSheetDto> findByCriteria(Animal animal) {
+        List<ObservationAnimal> observationAnimals;
+        if(animal != null){
+            observationAnimals =  observationAnimalService.findAllByCriteria(animal.getId());
+        }
+        else{
+            observationAnimals = observationAnimalService.findAll();
+        }
         return observationAnimals.stream().map(observationSheetMapper::toObservationSheetAndAnimalDto).collect(Collectors.toList());
     }
 

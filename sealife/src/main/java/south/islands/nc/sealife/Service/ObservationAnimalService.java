@@ -18,12 +18,15 @@ public class ObservationAnimalService {
         this.animalRepository = animalRepository;
     }
 
-
     public ObservationAnimal createObservationAnimal(ObservationAnimal observationAnimal) {
         return animalRepository.save(observationAnimal);
     }
 
     public List<ObservationAnimal> findAllByCriteria(Long animalId) {
         return animalRepository.findAllByCriteria(animalId);
+    }
+
+    public List<ObservationAnimal> findAll() {
+        return animalRepository.findAll();
     }
 }
