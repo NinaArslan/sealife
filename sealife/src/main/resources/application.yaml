@@ -38,3 +38,6 @@ logging:
         stat: debug
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+client:
+  ilotsNC:
+    url: https://www.province-sud.nc/pandoreweb

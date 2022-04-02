@@ -103,6 +103,11 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.1</version>
+		</dependency>
 
 		<!-- Test Dependencies -->
 		<dependency>
@@ -229,6 +234,26 @@
 								<openApiNullable>false</openApiNullable>
 								<swaggerDocketConfig>true</swaggerDocketConfig>
 								<withXml>false</withXml>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>ilots</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/ilotsNC/ilotsNC.yaml</inputSpec>
+							<generatorName>java</generatorName>
+							<library>webclient</library>
+							<modelPackage>models</modelPackage>
+							<generateApis>false</generateApis>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<generateApiDocumentation>false</generateApiDocumentation>
+							<generateApiTests>false</generateApiTests>
+							<generateModelTests>false</generateModelTests>
+							<configOptions>
+								<sourceFolder>ilotsNC</sourceFolder>
 							</configOptions>
 						</configuration>
 					</execution>

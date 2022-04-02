@@ -1,0 +1,528 @@
+openapi: 3.0.1
+info:
+  title: 1.0.0
+  description: Données sur les aires protégées / ilôts
+  contact:
+    name: Province Sud (DDDT)
+    url: https://www.province-sud.nc
+    email: contact.3dt@province-sud.nc
+  license:
+    name: Etalab
+    url: https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf
+  version: 3.4.0-BUILD001
+externalDocs:
+  description: ''
+  url: ''
+servers:
+  - url: https://www.province-sud.nc/pandoreweb
+tags:
+  - name: AireProtegeeDto
+    description: Aires protégées en vigueur de la province Sud
+  - name: IlotDto
+    description: Ilots de la province Sud
+paths:
+  /pandore/ap/AireProtegeeDto/:
+    get:
+      tags:
+        - AireProtegeeDto
+      summary: Recherche toutes les entités de type AireProtegeeDto
+      description: Recherche de toutes les aires protégées.Le nombre de résultats est limité à 50 au maximum
+      parameters:
+        - name: limit
+          in: query
+          description: Limite le nombre de résultat à retourner
+          required: false
+          schema:
+            maximum: 50
+            minimum: 0
+            type: integer
+            format: int32
+            example: 5
+        - name: start
+          in: query
+          description: Offset pour récupérer les n résultats suivant, pour paginer il faut utiliser un multiple du paramètre limit
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            example: 0
+        - name: id
+          in: query
+          schema:
+            type: string
+            nullable: false
+          examples:
+            Ignorer: {}
+            Avec valeur:
+              value: '|-Null'
+            Sans valeur:
+              value: '|Null'
+        - name: _responseMode
+          in: query
+          description: Force la sérialisation du résultat dans un format en ignorant l'entête http Response content type
+          required: false
+          schema:
+            type: string
+            format: string
+            example: json
+            enum:
+              - json
+              - xml
+              - binary
+      responses:
+        '200':
+          description: 'Le résultat a été retourné '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Nombre total de résultats trouvé
+                    format: int32
+                  success:
+                    type: boolean
+                    description: Succès de la requête
+                  data:
+                    type: array
+                    description: Liste des résultats
+                    items:
+                      $ref: '#/components/schemas/AireProtegeeDto'
+        '403':
+          description: Accès non authorisé
+        '404':
+          description: Le demande n'a pas été trouvée
+        '500':
+          description: Le service ne fonctionne pas correctement, essayez plus tard
+      security:
+        - jsession: []
+  /pandore/ilot/IlotDto/{id}:
+    get:
+      tags:
+        - IlotDto
+      summary: Récupération d'une entité de type IlotDto
+      description: Recherche d'un ilôt particulier
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            nullable: false
+        - name: _responseMode
+          in: query
+          description: Force la sérialisation du résultat dans un format en ignorant l'entête http Response content type
+          required: false
+          schema:
+            type: string
+            format: string
+            example: json
+            enum:
+              - json
+              - xml
+              - binary
+      responses:
+        '200':
+          description: 'Le résultat a été retourné '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Nombre total de résultats trouvé
+                    format: int32
+                  success:
+                    type: boolean
+                    description: Succès de la requête
+                  data:
+                    $ref: '#/components/schemas/IlotDto'
+        '403':
+          description: Accès non authorisé
+        '404':
+          description: Le demande n'a pas été trouvée
+        '500':
+          description: Le service ne fonctionne pas correctement, essayez plus tard
+      security:
+        - jsession: []
+  /pandore/ap/AireProtegeeDto/{id}:
+    get:
+      tags:
+        - AireProtegeeDto
+      summary: Récupération d'une entité de type AireProtegeeDto
+      description: Recherche d'une aire protégée particulière
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            nullable: false
+        - name: _responseMode
+          in: query
+          description: Force la sérialisation du résultat dans un format en ignorant l'entête http Response content type
+          required: false
+          schema:
+            type: string
+            format: string
+            example: json
+            enum:
+              - json
+              - xml
+              - binary
+      responses:
+        '200':
+          description: 'Le résultat a été retourné '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Nombre total de résultats trouvé
+                    format: int32
+                  success:
+                    type: boolean
+                    description: Succès de la requête
+                  data:
+                    $ref: '#/components/schemas/AireProtegeeDto'
+        '403':
+          description: Accès non authorisé
+        '404':
+          description: Le demande n'a pas été trouvée
+        '500':
+          description: Le service ne fonctionne pas correctement, essayez plus tard
+      security:
+        - jsession: []
+  /pandore/ilot/IlotDto/:
+    get:
+      tags:
+        - IlotDto
+      summary: Recherche toutes les entités de type IlotDto
+      description: Recherche des ilôts.Le nombre de résultats est limité à 50 au maximum
+      parameters:
+        - name: limit
+          in: query
+          description: Limite le nombre de résultat à retourner
+          required: false
+          schema:
+            maximum: 50
+            minimum: 0
+            type: integer
+            format: int32
+            example: 5
+        - name: start
+          in: query
+          description: Offset pour récupérer les n résultats suivant, pour paginer il faut utiliser un multiple du paramètre limit
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            example: 0
+        - name: id
+          in: query
+          schema:
+            type: string
+            nullable: false
+          examples:
+            Ignorer: {}
+            Avec valeur:
+              value: '|-Null'
+            Sans valeur:
+              value: '|Null'
+        - name: _responseMode
+          in: query
+          description: Force la sérialisation du résultat dans un format en ignorant l'entête http Response content type
+          required: false
+          schema:
+            type: string
+            format: string
+            example: json
+            enum:
+              - json
+              - xml
+              - binary
+      responses:
+        '200':
+          description: 'Le résultat a été retourné '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Nombre total de résultats trouvé
+                    format: int32
+                  success:
+                    type: boolean
+                    description: Succès de la requête
+                  data:
+                    type: array
+                    description: Liste des résultats
+                    items:
+                      $ref: '#/components/schemas/IlotDto'
+        '403':
+          description: Accès non authorisé
+        '404':
+          description: Le demande n'a pas été trouvée
+        '500':
+          description: Le service ne fonctionne pas correctement, essayez plus tard
+      security:
+        - jsession: []
+components:
+  schemas:
+    AireProtegeeDto:
+      properties:
+        activites:
+          type: array
+          description: Liste des activités d'aménagement présent dans l'aire protégée
+          nullable: true
+          items:
+            type: string
+        amenagements:
+          type: array
+          description: Liste des types d'aménagement présent dans l'aire protégée
+          nullable: true
+          items:
+            type: string
+        communes:
+          type: string
+          description: Communes qui interctent l'aire protégée
+          nullable: false
+        consignes:
+          type: array
+          description: Liste des consignes (interdictions  et recommandations et bons gestes)
+          nullable: true
+          items:
+            type: string
+        description:
+          type: string
+          nullable: false
+        fermeturePermanente:
+          type: boolean
+          description: Est-ce que l'aire protégée est interdite en permanence ? (réserve intégrale)
+          nullable: false
+        fermeturesExceptionnelles:
+          type: array
+          description: Liste des fermetures exeptionnelles des aires protégées
+          nullable: true
+          items:
+            type: string
+        ficheIdentite:
+          description: Brochure pdf de l'aire protégée
+          $ref: '#/components/schemas/FichierDto'
+          nullable: false
+        geom:
+          type: string
+          description: Géométrie complète de l'aire protégée au format WKT et sous la projection WGS84 / SRID=4326
+          nullable: false
+        geomSimplify:
+          type: string
+          description: Géométrie simplifiée de l'aire protégée au format WKT et sous la projection WGS84 / SRID=4326
+          nullable: false
+        geomStyle:
+          type: string
+          description: Style pour représenter les aires protégées au format openlayers
+          format: Map
+          nullable: true
+        id:
+          type: string
+          nullable: false
+        ilots:
+          type: array
+          description: Listes des ilots appartenant à l'aire protégée (dans le cas des aires marines)
+          nullable: true
+          items:
+            $ref: '#/components/schemas/IlotDto'
+        infosPratiques:
+          type: string
+          description: Description des informations pratiques
+          nullable: false
+        jourDebutFermeture:
+          type: integer
+          description: 'Jour de début de la fermeture de l''aire protégée (inclu) dans le cas des aires protégées intégrales saisonnières (fermeture annuelle) '
+          format: int32
+          nullable: false
+        jourFinFermeture:
+          type: integer
+          description: 'Jour de fin de la fermeture de l''aire protégée (inclu) dans le cas des aires protégées intégrales saisonnières (fermeture annuelle) '
+          format: int32
+          nullable: false
+        libelle:
+          type: string
+          description: Nom de l'aire protégée
+          nullable: false
+        libelleFermeture:
+          type: array
+          description: Liste des fermetures sous forme de libelle
+          nullable: true
+          items:
+            type: string
+        localisation:
+          type: string
+          description: Point représentant le centroïde de l'aire protégée au format WKT et sous la projection WGS84 / SRID=4326
+          nullable: false
+        moisDebutFermeture:
+          type: integer
+          description: mois de début de la fermeture de l'aire protégée (inclu) dans le cas des aires protégées intégrales saisonnières (fermeture annuelle)
+          format: int32
+          nullable: false
+        moisFinFermeture:
+          type: integer
+          description: mois de fin de la fermeture de l'aire protégée (inclu) dans le cas des aires protégées intégrales saisonnières (fermeture annuelle)
+          format: int32
+          nullable: false
+        natureLibelle:
+          type: string
+          description: Nature de l'aire protégée
+          nullable: false
+        ouvert:
+          type: boolean
+          description: Est-ce que l'aire protégée est authorisée en ce moment ?
+          nullable: false
+        photoPrincipale:
+          description: Photo principale représentant l'aire protégée
+          $ref: '#/components/schemas/PhotoDto'
+          nullable: false
+        photos:
+          type: array
+          description: Liste des photos de l'aire protégée
+          nullable: true
+          items:
+            $ref: '#/components/schemas/PhotoDto'
+        richesseFaunistique:
+          type: string
+          description: Description de la richesse faunistique
+          nullable: false
+        richesseFloristique:
+          type: string
+          description: Description de la richesse floristique
+          nullable: false
+        type:
+          type: string
+          description: Type d'aire protégée
+          nullable: false
+        urlPageWeb:
+          type: string
+          description: url vers le site de la province sud pour présenter l'aire protégée
+          nullable: false
+      description: Aires protégées en vigueur de la province Sud
+    IlotDto:
+      properties:
+        aireProtegeePrincipale:
+          description: Aire protégée liée à l'ilôt
+          $ref: '#/components/schemas/AireProtegeeDto'
+          nullable: false
+        airesProtegees:
+          type: array
+          description: Liste des aires protégées de l'ilôt
+          nullable: true
+          items:
+            $ref: '#/components/schemas/AireProtegeeDto'
+        close:
+          type: boolean
+          description: Est-il interdit de débarquer ?
+          nullable: false
+        commentaireFermeture:
+          type: string
+          description: Commentaire
+          nullable: false
+        commune:
+          type: string
+          description: Nom de la commune
+          nullable: false
+        description:
+          type: string
+          description: Description de l'ilôt
+          nullable: false
+        geom:
+          type: string
+          description: Géométrie complète de  l'ilôt au format WKT et sous la projection WGS84 / SRID=4326
+          nullable: false
+        id:
+          type: string
+          nullable: false
+        localisation:
+          type: string
+          description: Centroïde de  l'ilôt au format WKT et sous la projection WGS84 / SRID=4326
+          nullable: false
+        periodeFermeture:
+          type: string
+          description: Période de fermeture
+          nullable: false
+        photoPrincipale:
+          description: Photo principale de l'ilôt
+          $ref: '#/components/schemas/PhotoDto'
+          nullable: false
+        photos:
+          type: array
+          description: Liste des photos de l'ilôt
+          nullable: true
+          items:
+            $ref: '#/components/schemas/PhotoDto'
+        titre:
+          type: string
+          description: Nom de l'ilôt
+          nullable: false
+        urlPageWeb:
+          type: string
+          description: url vers le site de la province sud pour présenter l'ilôt
+          nullable: false
+      description: Ilots de la province Sud
+    FichierDto:
+      properties:
+        description:
+          type: string
+          nullable: false
+        fichierPath:
+          type: string
+          description: Url pour télécharger le fichier
+          nullable: false
+        id:
+          type: string
+          nullable: false
+        taille:
+          description: Taille en octets du fichier
+          format: int64
+          nullable: false
+        titre:
+          type: string
+          description: Libelle du fichier
+          nullable: false
+    PhotoDto:
+      properties:
+        copyright:
+          type: string
+          description: Si indiqué, obligation de mentionner le copyright lors de l'affichage de la photo
+          nullable: false
+        id:
+          type: string
+          nullable: false
+        nom:
+          type: string
+          description: Libelle de la photo
+          nullable: false
+        pathHd:
+          type: string
+          description: Url pour accéder à la photo en qualité HD
+          nullable: false
+        pathVignette:
+          type: string
+          description: Url pour accéder à la vignette de la photo
+          nullable: false
+        priorite:
+          type: integer
+          description: Classement des photos
+          format: int32
+          nullable: false
+  securitySchemes:
+    jsession:
+      type: apiKey
+      name: ''
+      in: cookie
