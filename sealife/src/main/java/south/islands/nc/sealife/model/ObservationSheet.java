@@ -27,9 +27,5 @@ public class ObservationSheet {
     @Enumerated(EnumType.STRING)
     private QualityObservation qualityObservation;
 
-    @OneToOne
-    @JoinTable(name = "ANIMAL")
-    private Animal animal;
-
 }
 
