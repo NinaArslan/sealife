@@ -3,7 +3,7 @@ package south.islands.nc.sealife.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-import south.islands.nc.sealife.Service.SpeciesService;
+import south.islands.nc.sealife.Services.SpeciesService;
 import south.islands.nc.sealife.mapper.SpecieMapper;
 import south.islands.nc.sealife.rest.api.SpeciesApi;
 import south.islands.nc.sealife.rest.model.SpecieDto;

@@ -1,8 +1,8 @@
-package south.islands.nc.sealife.Service;
+package south.islands.nc.sealife.Services;
 
 import org.springframework.stereotype.Service;
-import south.islands.nc.sealife.model.Specie;
-import south.islands.nc.sealife.model.SpecieRepository;
+import south.islands.nc.sealife.models.Specie;
+import south.islands.nc.sealife.Repositories.SpecieRepository;
 
 import java.util.List;
 

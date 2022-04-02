@@ -3,10 +3,10 @@ package south.islands.nc.sealife.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import south.islands.nc.sealife.model.Animal;
-import south.islands.nc.sealife.model.ObservationAnimal;
-import south.islands.nc.sealife.model.ObservationSheet;
-import south.islands.nc.sealife.model.QualityObservation;
+import south.islands.nc.sealife.models.Animal;
+import south.islands.nc.sealife.models.ObservationAnimal;
+import south.islands.nc.sealife.models.ObservationSheet;
+import south.islands.nc.sealife.models.QualityObservation;
 import south.islands.nc.sealife.rest.model.ObservationSheetDto;
 
 

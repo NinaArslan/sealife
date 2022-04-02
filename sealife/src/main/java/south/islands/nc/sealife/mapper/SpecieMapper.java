@@ -1,7 +1,7 @@
 package south.islands.nc.sealife.mapper;
 
 import org.mapstruct.Mapper;
-import south.islands.nc.sealife.model.Specie;
+import south.islands.nc.sealife.models.Specie;
 import south.islands.nc.sealife.rest.model.SpecieDto;
 
 @Mapper

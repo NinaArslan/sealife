@@ -1,4 +1,4 @@
-package south.islands.nc.sealife.model;
+package south.islands.nc.sealife.models;
 
 
 import lombok.*;

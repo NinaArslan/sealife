@@ -1,14 +1,14 @@
-package south.islands.nc.sealife.Service;
+package south.islands.nc.sealife.Services;
 
 
 import org.springframework.stereotype.Service;
 import south.islands.nc.sealife.mapper.ObservationAnimalMapper;
 import south.islands.nc.sealife.mapper.ObservationSheetMapper;
-import south.islands.nc.sealife.model.Animal;
+import south.islands.nc.sealife.models.Animal;
 
-import south.islands.nc.sealife.model.ObservationAnimal;
-import south.islands.nc.sealife.model.ObservationSheet;
-import south.islands.nc.sealife.model.ObservationSheetRespository;
+import south.islands.nc.sealife.models.ObservationAnimal;
+import south.islands.nc.sealife.models.ObservationSheet;
+import south.islands.nc.sealife.Repositories.ObservationSheetRespository;
 import south.islands.nc.sealife.rest.model.ObservationSheetDto;
 
 import java.util.List;
