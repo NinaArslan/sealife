@@ -2,10 +2,7 @@ package south.islands.nc.sealife.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Builder
 @AllArgsConstructor
@@ -17,7 +14,7 @@ public class ObservationAnimal {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne

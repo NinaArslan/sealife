@@ -2,7 +2,6 @@ package south.islands.nc.sealife.Service;
 
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import south.islands.nc.sealife.mapper.ObservationAnimalMapper;
 import south.islands.nc.sealife.mapper.ObservationSheetMapper;
 import south.islands.nc.sealife.model.Animal;
