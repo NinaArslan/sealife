@@ -52,6 +52,32 @@ components:
         distanceFromIsland:
           type: integer
           format: int32
+        observationDate:
+          type: string
+          format: date-time
+        observationQuality:
+          type: string
+          enum:
+            - SUSPICION
+            - PROBABLE
+            - VERIFIE
+        animalName:
+          type: string
+        specie:
+          type: string
+          enum:
+            - MAMMIFERE
+            - POISSON
+        size:
+          type: integer
+          format: int32
+        isBank:
+          type: boolean
+        apneaTime:
+          type: integer
+          format: int32
+
+
 
 
   
