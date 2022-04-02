@@ -28,7 +28,7 @@ CREATE TABLE OBSERVATION_ANIMAL (
     animal_id BIGINT NOT NULL,
     size INT,
     is_bank boolean NOT NULL,
-    apnea_time INT,
+    apnea_time INT NULL,
     FOREIGN KEY (animal_id) REFERENCES ANIMAL(id),
     FOREIGN KEY (observation_sheet_id) REFERENCES OBSERVATION_SHEET (id)
 )

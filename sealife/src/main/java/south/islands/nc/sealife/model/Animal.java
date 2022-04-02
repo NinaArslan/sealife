@@ -16,6 +16,7 @@ public class Animal {
 
     private String name;
 
-    @ManyToOne
+    @OneToOne(targetEntity = Specie.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "SPECIE_ID")
     private Specie specie;
 }

@@ -1,6 +1,7 @@
 package south.islands.nc.sealife.model;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -17,16 +18,19 @@ public class ObservationAnimal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(targetEntity = ObservationSheet.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "OBSERVATION_SHEET_ID")
     private ObservationSheet observationSheet;
 
-    @OneToOne
+    @OneToOne(targetEntity = Animal.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ANIMAL_ID")
     private Animal animal;
 
     private int size;
 
-    private boolean isBank;
+    private Boolean isBank;
 
+    @Nullable
     private int apneaTime;
 
 }

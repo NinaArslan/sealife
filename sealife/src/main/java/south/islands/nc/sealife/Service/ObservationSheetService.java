@@ -5,10 +5,14 @@ import org.springframework.stereotype.Service;
 import south.islands.nc.sealife.mapper.ObservationAnimalMapper;
 import south.islands.nc.sealife.mapper.ObservationSheetMapper;
 import south.islands.nc.sealife.model.Animal;
+
 import south.islands.nc.sealife.model.ObservationAnimal;
 import south.islands.nc.sealife.model.ObservationSheet;
 import south.islands.nc.sealife.model.ObservationSheetRespository;
 import south.islands.nc.sealife.rest.model.ObservationSheetDto;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ObservationSheetService {
@@ -32,10 +36,17 @@ public class ObservationSheetService {
     public ObservationSheetDto createObservationSheet(ObservationSheetDto observationSheetDto, Animal animal) {
         ObservationSheet observationSheet = sheetRespository.save(
                 observationSheetMapper.toObservationSheet(observationSheetDto));
-        ObservationAnimal observationAnimal = observationAnimalService.createObservationAnimal(
+        observationAnimalService.createObservationAnimal(
                 observationAnimalMapper.toObservationAnimal(animal, observationSheet, observationSheetDto.getApneaTime(), observationSheetDto.getIsBank(),observationSheetDto.getSize()));
         observationSheetDto.setId(observationSheet.getId());
         return observationSheetDto;
 
     }
+
+
+    public List<ObservationSheetDto> findByCriteria(Long animalId) {
+        List<ObservationAnimal> observationAnimals =  observationAnimalService.findAllByCriteria(animalId);
+        return observationAnimals.stream().map(observationSheetMapper::toObservationSheetAndAnimalDto).collect(Collectors.toList());
+    }
+
 }

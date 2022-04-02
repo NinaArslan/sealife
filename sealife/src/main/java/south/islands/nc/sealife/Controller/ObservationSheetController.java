@@ -5,9 +5,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import south.islands.nc.sealife.Service.AnimalService;
 import south.islands.nc.sealife.Service.ObservationSheetService;
+import south.islands.nc.sealife.mapper.ObservationSheetMapper;
 import south.islands.nc.sealife.model.Animal;
 import south.islands.nc.sealife.rest.api.ObservationSheetApi;
 import south.islands.nc.sealife.rest.model.ObservationSheetDto;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @CrossOrigin
@@ -16,10 +20,12 @@ public class ObservationSheetController implements ObservationSheetApi {
 
     private final ObservationSheetService observationSheetService;
     private final AnimalService animalService;
+    private final ObservationSheetMapper observationSheetMapper;
 
-    public ObservationSheetController(ObservationSheetService observationSheetService, AnimalService animalService) {
+    public ObservationSheetController(ObservationSheetService observationSheetService, AnimalService animalService, ObservationSheetMapper observationSheetMapper) {
         this.observationSheetService = observationSheetService;
         this.animalService = animalService;
+        this.observationSheetMapper = observationSheetMapper;
     }
 
 
@@ -29,5 +35,20 @@ public class ObservationSheetController implements ObservationSheetApi {
                 .orElseThrow(() -> new AnimalNotFoundException(observationSheetDto.getAnimalName()));
 
         return ResponseEntity.ok(observationSheetService.createObservationSheet(observationSheetDto, animal));
+    }
+
+    /**
+     * GET /observation-sheet/searchCriteria : Find Observations by criteria
+     *
+     * @param animalName (optional)
+     * @return OK (status code 200)
+     * or BAD REQUEST (status code 400)
+     * or NOT FOUND (status code 404)
+     */
+    @Override
+    public ResponseEntity<List<ObservationSheetDto>> searchByCriteria(String animalName) {
+        Animal animal = animalService.findByName(animalName)
+                .orElseThrow(() -> new AnimalNotFoundException(animalName));
+        return ResponseEntity.ok(observationSheetService.findByCriteria(animal.getId()));
     }
 }
