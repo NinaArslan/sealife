@@ -9,7 +9,6 @@ import south.islands.nc.sealife.models.ObservationSheet;
 import south.islands.nc.sealife.models.QualityObservation;
 import south.islands.nc.sealife.rest.model.ObservationSheetDto;
 
-
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -24,12 +23,10 @@ public abstract class ObservationSheetMapper {
     @Mapping(target = "animalName", source = "animal.name")
     @Mapping(target = "specie", source = "animal.specie.specieName")
     @Mapping(target = "islandId", source = "observationSheet.islandId")
-
     @Mapping(target = "distanceFromIsland", source = "observationSheet.distanceFromIsland")
     @Mapping(target = "observationDate", source = "observationSheet.observationDate", qualifiedByName = "localDateTimeToOffsetDateTime")
     @Mapping(target = "observationQuality", source = "observationSheet.qualityObservation", qualifiedByName = "mapEnumDto")
     public abstract ObservationSheetDto toObservationSheetAndAnimalDto(ObservationAnimal observationAnimal);
-
 
     @Mapping(target = "observationDate", source = "observationDate", qualifiedByName = "localDateTimeToOffsetDateTime")
     @Mapping(target = "observationQuality", source = "qualityObservation", qualifiedByName = "mapEnumDto")
@@ -57,13 +54,9 @@ public abstract class ObservationSheetMapper {
         return QualityObservation.valueOf(String.valueOf(value));
     }
 
-
     @Named("mapEnumDto")
     public ObservationSheetDto.ObservationQualityEnum mapEnumDto(QualityObservation value){
         return ObservationSheetDto.ObservationQualityEnum.valueOf(String.valueOf(value));
     }
-
-
-
 
 }

@@ -1,7 +1,9 @@
 package south.islands.nc.sealife.Services;
 
 
+import models.IlotDto;
 import org.springframework.stereotype.Service;
+import south.islands.nc.sealife.ilotsNC.IlotsNCClient;
 import south.islands.nc.sealife.mapper.ObservationAnimalMapper;
 import south.islands.nc.sealife.mapper.ObservationSheetMapper;
 import south.islands.nc.sealife.models.Animal;
@@ -20,18 +22,19 @@ public class ObservationSheetService {
     private final ObservationSheetRespository sheetRespository;
 
     private final ObservationAnimalService observationAnimalService;
+    private final IlotsNCClient ilotsNCClient;
 
     private final ObservationSheetMapper observationSheetMapper;
     private final ObservationAnimalMapper observationAnimalMapper;
 
 
-    public ObservationSheetService(ObservationSheetRespository sheetRespository, ObservationAnimalService observationAnimalService, ObservationSheetMapper observationSheetMapper, ObservationAnimalMapper observationAnimalMapper) {
+    public ObservationSheetService(ObservationSheetRespository sheetRespository, ObservationAnimalService observationAnimalService, IlotsNCClient ilotsNCClient, ObservationSheetMapper observationSheetMapper, ObservationAnimalMapper observationAnimalMapper) {
         this.sheetRespository = sheetRespository;
         this.observationAnimalService = observationAnimalService;
+        this.ilotsNCClient = ilotsNCClient;
         this.observationSheetMapper = observationSheetMapper;
         this.observationAnimalMapper = observationAnimalMapper;
     }
-
 
     public ObservationSheetDto createObservationSheet(ObservationSheetDto observationSheetDto, Animal animal) {
         ObservationSheet observationSheet = sheetRespository.save(
@@ -40,9 +43,7 @@ public class ObservationSheetService {
                 observationAnimalMapper.toObservationAnimal(animal, observationSheet, observationSheetDto.getApneaTime(), observationSheetDto.getIsBank(),observationSheetDto.getSize()));
         observationSheetDto.setId(observationSheet.getId());
         return observationSheetDto;
-
     }
-
 
     public List<ObservationSheetDto> findByCriteria(Animal animal) {
         List<ObservationAnimal> observationAnimals;
@@ -53,6 +54,10 @@ public class ObservationSheetService {
             observationAnimals = observationAnimalService.findAll();
         }
         return observationAnimals.stream().map(observationSheetMapper::toObservationSheetAndAnimalDto).collect(Collectors.toList());
+    }
+
+    public IlotDto getIlotDto(String islandId) {
+        return ilotsNCClient.findIslandById(islandId);
     }
 
 }

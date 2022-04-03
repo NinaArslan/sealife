@@ -22,22 +22,23 @@ public class ObservationSheetController implements ObservationSheetApi {
 
     private final ObservationSheetService observationSheetService;
     private final AnimalService animalService;
-    private final IlotsNCClient ilotsNCClient;
 
-    public ObservationSheetController(ObservationSheetService observationSheetService, AnimalService animalService, IlotsNCClient ilotsNCClient) {
+
+    public ObservationSheetController(ObservationSheetService observationSheetService, AnimalService animalService) {
         this.observationSheetService = observationSheetService;
         this.animalService = animalService;
-        this.ilotsNCClient = ilotsNCClient;
     }
-
 
     @Override
     public ResponseEntity<ObservationSheetDto> newObservationSheet(ObservationSheetDto observationSheetDto) {
         Animal animal = animalService.findByName(observationSheetDto.getAnimalName())
                 .orElseThrow(() -> new AnimalNotFoundException(observationSheetDto.getAnimalName()));
-        IlotDto ilotDto = ilotsNCClient.findIslandById(observationSheetDto.getIslandId());
+        IlotDto ilotDto = observationSheetService.getIlotDto(observationSheetDto.getIslandId());
         if(ilotDto == null){
             throw new IlotNotFoundException(observationSheetDto.getIslandId());
+        }
+        else{
+            observationSheetDto.setIslandName(ilotDto.getTitre());
         }
         return ResponseEntity.ok(observationSheetService.createObservationSheet(observationSheetDto, animal));
     }
@@ -56,4 +57,7 @@ public class ObservationSheetController implements ObservationSheetApi {
                     .orElse(null);
         return ResponseEntity.ok(observationSheetService.findByCriteria(animal));
     }
+
+
+
 }

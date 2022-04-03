@@ -20,6 +20,8 @@ public class ObservationSheet {
 
     private String islandId;
 
+    private String islandName;
+
     private int distanceFromIsland;
 
     private LocalDateTime observationDate;

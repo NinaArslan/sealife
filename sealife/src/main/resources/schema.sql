@@ -17,6 +17,7 @@ CREATE INDEX IDX_ANIMAL_NAME on ANIMAL (name);
 CREATE TABLE OBSERVATION_SHEET (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     island_id VARCHAR(150) NOT NULL,
+    island_name VARCHAR(150) NOT NULL,
     distance_from_island INT NOT NULL,
     observation_date DATETIME NOT NULL,
     quality_observation VARCHAR(100)

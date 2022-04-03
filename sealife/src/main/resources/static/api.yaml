@@ -85,6 +85,8 @@ components:
           format: int64
         islandId:
           type: string
+        islandName:
+          type: string
         distanceFromIsland:
           type: integer
           format: int32
