@@ -38,3 +38,7 @@ que la création de la fiche pour une question de performance dans les appels du
 Si la recherche nécessite, dans une future évolution du projet, un filtrage sur d’autres champs. Il 
 serait intéressant d’utiliser QueryDsl, cela permet de travailler sur base d’un criteriaBuilder.
 
+Evidement, une étape importante serait aussi d'ajouter des unitTest et mocker les services externes
+
+Bonne journée 
+
