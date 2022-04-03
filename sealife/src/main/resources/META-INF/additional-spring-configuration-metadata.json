@@ -4,5 +4,10 @@
       "name": "springdoc.show-actuator",
       "type": "java.lang.String",
       "description": "Description for springdoc.show-actuator."
-  }
-] }
+    },
+    {
+      "name": "client.ilotsNC.url",
+      "type": "java.lang.String",
+      "description": "Description for client.ilotsNC.url."
+    }
+  ] }

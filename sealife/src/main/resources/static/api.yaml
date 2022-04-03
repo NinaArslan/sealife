@@ -112,6 +112,7 @@ components:
         isBank:
           type: boolean
         apneaTime:
+          nullable: true
           type: integer
           format: int32
     SpecieDto:

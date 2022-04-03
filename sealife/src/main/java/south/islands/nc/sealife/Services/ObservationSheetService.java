@@ -1,16 +1,13 @@
 package south.islands.nc.sealife.Services;
 
 
-import models.IlotDto;
 import org.springframework.stereotype.Service;
-import south.islands.nc.sealife.ilotsNC.IlotsNCClient;
+import south.islands.nc.sealife.Repositories.ObservationSheetRespository;
 import south.islands.nc.sealife.mapper.ObservationAnimalMapper;
 import south.islands.nc.sealife.mapper.ObservationSheetMapper;
 import south.islands.nc.sealife.models.Animal;
-
 import south.islands.nc.sealife.models.ObservationAnimal;
 import south.islands.nc.sealife.models.ObservationSheet;
-import south.islands.nc.sealife.Repositories.ObservationSheetRespository;
 import south.islands.nc.sealife.rest.model.ObservationSheetDto;
 
 import java.util.List;
@@ -22,16 +19,14 @@ public class ObservationSheetService {
     private final ObservationSheetRespository sheetRespository;
 
     private final ObservationAnimalService observationAnimalService;
-    private final IlotsNCClient ilotsNCClient;
 
     private final ObservationSheetMapper observationSheetMapper;
     private final ObservationAnimalMapper observationAnimalMapper;
 
 
-    public ObservationSheetService(ObservationSheetRespository sheetRespository, ObservationAnimalService observationAnimalService, IlotsNCClient ilotsNCClient, ObservationSheetMapper observationSheetMapper, ObservationAnimalMapper observationAnimalMapper) {
+    public ObservationSheetService(ObservationSheetRespository sheetRespository, ObservationAnimalService observationAnimalService, ObservationSheetMapper observationSheetMapper, ObservationAnimalMapper observationAnimalMapper) {
         this.sheetRespository = sheetRespository;
         this.observationAnimalService = observationAnimalService;
-        this.ilotsNCClient = ilotsNCClient;
         this.observationSheetMapper = observationSheetMapper;
         this.observationAnimalMapper = observationAnimalMapper;
     }
@@ -56,8 +51,5 @@ public class ObservationSheetService {
         return observationAnimals.stream().map(observationSheetMapper::toObservationSheetAndAnimalDto).collect(Collectors.toList());
     }
 
-    public IlotDto getIlotDto(String islandId) {
-        return ilotsNCClient.findIslandById(islandId);
-    }
 
 }

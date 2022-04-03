@@ -1,8 +1,6 @@
 package south.islands.nc.sealife.Controller;
 
-import feign.FeignException;
-import models.IlotDto;
-import org.springframework.http.HttpStatus;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +11,9 @@ import south.islands.nc.sealife.models.Animal;
 import south.islands.nc.sealife.rest.api.ObservationSheetApi;
 import south.islands.nc.sealife.rest.model.ObservationSheetDto;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -22,24 +22,28 @@ public class ObservationSheetController implements ObservationSheetApi {
 
     private final ObservationSheetService observationSheetService;
     private final AnimalService animalService;
+    private final IlotsNCClient ilotsNCClient;
+    ObjectMapper objectMapper = new ObjectMapper();
 
 
-    public ObservationSheetController(ObservationSheetService observationSheetService, AnimalService animalService) {
+    public ObservationSheetController(ObservationSheetService observationSheetService, AnimalService animalService, IlotsNCClient ilotsNCClient) {
         this.observationSheetService = observationSheetService;
         this.animalService = animalService;
+        this.ilotsNCClient = ilotsNCClient;
     }
 
     @Override
     public ResponseEntity<ObservationSheetDto> newObservationSheet(ObservationSheetDto observationSheetDto) {
         Animal animal = animalService.findByName(observationSheetDto.getAnimalName())
                 .orElseThrow(() -> new AnimalNotFoundException(observationSheetDto.getAnimalName()));
-        IlotDto ilotDto = observationSheetService.getIlotDto(observationSheetDto.getIslandId());
+        String ilotDto = getIlotDto(observationSheetDto.getIslandId());
         if(ilotDto == null){
             throw new IlotNotFoundException(observationSheetDto.getIslandId());
         }
         else{
-            observationSheetDto.setIslandName(ilotDto.getTitre());
+            observationSheetDto.setIslandName(ilotDto);
         }
+
         return ResponseEntity.ok(observationSheetService.createObservationSheet(observationSheetDto, animal));
     }
 
@@ -58,6 +62,9 @@ public class ObservationSheetController implements ObservationSheetApi {
         return ResponseEntity.ok(observationSheetService.findByCriteria(animal));
     }
 
-
-
+    private String getIlotDto(String islandId) {
+        Map<Object, Object> objectMap = ilotsNCClient.findIslandById(islandId);
+        Map<Object, Object> data = new LinkedHashMap<>((Map<?, ?>) objectMap.get("data"));
+        return data.get("titre").toString();
+    }
 }
