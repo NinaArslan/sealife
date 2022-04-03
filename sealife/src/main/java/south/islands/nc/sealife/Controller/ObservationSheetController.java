@@ -23,7 +23,7 @@ public class ObservationSheetController implements ObservationSheetApi {
     private final ObservationSheetService observationSheetService;
     private final AnimalService animalService;
     private final IlotsNCClient ilotsNCClient;
-    ObjectMapper objectMapper = new ObjectMapper();
+
 
 
     public ObservationSheetController(ObservationSheetService observationSheetService, AnimalService animalService, IlotsNCClient ilotsNCClient) {
